@@ -1,12 +1,13 @@
-import { Fragment, useState } from 'react'
+import { useEffect } from 'react'
 import Logo from './components/Logo'
 import Form from './components/Form'
 import PackageList from './components/PackingList'
 import Stats from './components/Stats'
 import { ItemType } from './types/data.type'
+import { useLocalStorageState } from './hooks/LocalStorageStateHook'
 
 function App() {
-  const [itemList, setItemList] = useState<ItemType[]>([])
+  const [itemList, setItemList] = useLocalStorageState<ItemType[]>([], 'travel-list')
 
   const handleAddItem = (item: ItemType) => {
     setItemList((prev) => [...prev, item])
@@ -24,8 +25,6 @@ function App() {
   const handleDeleteItem = (id: number) => {
     setItemList((prev) => prev.filter((item: ItemType) => item.id !== id))
   }
-
-  const handleSort = (value: string) => {}
 
   const handleClearList = () => {
     setItemList([])
